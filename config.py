@@ -1,2 +1,2 @@
 class Configuration():
-    DEBAG = True
+    DEBUG = True
