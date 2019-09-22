@@ -11,10 +11,16 @@
      <p>
          {{ form.URL.label }}<br>
          {{ form.URL(size=32) }}
+         {% for error in form.URL.errors %}
+            <span style="color: red;">{{ error }}</span>
+         {% endfor %}
      </p>
      <p>
          {{ form.shortner_name.label }}<br>
          {{ form.shortner_name(size=32) }}
+         {% for error in form.shortner_name.errors %}
+            <span style="color: red;">{{ error }}</span>
+         {% endfor %}
      </p>
      <p>{{ form.submit() }}</p>
   </form>
