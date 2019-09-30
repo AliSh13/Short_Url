@@ -7,6 +7,6 @@ short_url = Blueprint('short_url', __name__, template_folder='templates')
 def short():
     form = Shortner()
     if form.validate_on_submit():
-        value = form.shortner_name.data
+        value = request.form.get('shortner_name')
         flash('Новая ссылка готова - sh.su/{}'.format(value))
     return render_template('short_url/short.html', form = form)
