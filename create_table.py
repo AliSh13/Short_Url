@@ -1,14 +1,14 @@
 import MySQLdb
-import config
+from config import DevelopConfig
 import sql_request
 
 """
 скрипт создает бд
 """
-host = config.host
-user = config.user
-password = config.password
-db = config.db
+host = DevelopConfig.host
+user = DevelopConfig.user
+password = DevelopConfig.password
+db = DevelopConfig.db
 
 create_table = sql_request.create_table_url
 index = sql_request.add_index
