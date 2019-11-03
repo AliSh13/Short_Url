@@ -2,8 +2,9 @@ import os
 
 class Configuration():
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'you-will-never-guess'
-    DATABASE_URI = 'mysql+mysqlconnector://short_user:1e2w3q2200@localhost/sh_db'
-
+    SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://short_user:1e2w3q2200@localhost/sh_db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    EXTEND_EXISTINGS = True
 
 class ProductionConfig(Configuration):
     DEBUG = False

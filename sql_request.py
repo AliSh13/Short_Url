@@ -5,7 +5,7 @@ create_table_url = '''
         CREATE TABLE URL(
         URL VARCHAR(512) NOT NULL,
         S_URL VARCHAR(80) UNIQUE NOT NULL,
-        USER VARCHAR(80),
+        USER SMALLINT UNSIGNED ,
         COUNTER INT DEFAULT 0,
         CHROME INT DEFAULT 0,
         FIREFOX INT DEFAULT 0,
@@ -17,7 +17,9 @@ create_table_url = '''
         LINUX INT DEFAULT 0,
         MAC INT DEFAULT 0,
         OTHER_PLATFORM INT DEFAULT 0 ,
-        PRIMARY KEY(S_URL));
+        DATE_FOLLOWING DATETIME , 
+        PRIMARY KEY(S_URL),
+        FOREIGN KEY (USER) REFERENCES users (Id) ON DELETE CASCADE );
         '''
 add_index = """
         ALTER TABLE URL ADD INDEX (URL);

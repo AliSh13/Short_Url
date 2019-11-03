@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, request, flash
 from .forms import Shortner
 
 short_url = Blueprint('short_url', __name__, template_folder='templates')
-
 @short_url.route('/', methods=['GET', 'POST'])
 def short():
     form = Shortner()
