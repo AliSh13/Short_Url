@@ -23,6 +23,7 @@ class Urls(db.Model):
     id = db.Column(db.Integer(), unique=True, autoincrement=True)
     url = db.Column(db.VARCHAR(512), nullable=False, index=True)
     sh_url = db.Column(db.VARCHAR(50), nullable=False, unique=True, primary_key=True)
+    tag = db.Column(db.VARCHAR(60), nullable=True, index=True)
     user = db.Column(db.Integer(), db.ForeignKey('users.id'), nullable=False)
     stat = db.relationship('UrlStat', backref='url', lazy='dynamic')
 
@@ -40,18 +41,18 @@ class UrlStat(db.Model):
     __tablename__ = 'statistic'
 
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
-    url = db.Column(db.Integer(), db.ForeignKey('urls.id'),  nullable=False)
-    counter = db.Column(db.INT(), default=0)
-    chrome = db.Column(db.INT(), default=0)
-    firefox = db.Column(db.INT(), default=0)
-    yandex = db.Column(db.INT(), default=0)
-    opera = db.Column(db.INT(), default=0)
-    other_br = db.Column(db.INT(), default=0)
-    android = db.Column(db.INT(), default=0)
-    windows = db.Column(db.INT(), default=0)
-    mac = db.Column(db.INT(), default=0)
-    linux = db.Column(db.INT(), default=0)
-    other_pl = db.Column(db.INT(), default=0)
+    url = db.Column(db.Integer(), db.ForeignKey('urls.id'), nullable=False)
+    counter = db.Column(db.INT(), nullable=False, default=0)
+    chrome = db.Column(db.INT(), nullable=False, default=0)
+    firefox = db.Column(db.INT(), nullable=False, default=0)
+    yandex = db.Column(db.INT(), nullable=False, default=0)
+    opera = db.Column(db.INT(), nullable=False, default=0)
+    other_br = db.Column(db.INT(), nullable=False, default=0)
+    android = db.Column(db.INT(), nullable=False, default=0)
+    windows = db.Column(db.INT(), nullable=False, default=0)
+    mac = db.Column(db.INT(), nullable=False, default=0)
+    linux = db.Column(db.INT(), nullable=False, default=0)
+    other_pl = db.Column(db.INT(), nullable=False, default=0)
     date_use = db.Column(db.DATETIME(), nullable=False)
 
     def __init__(self, *args, **kwargs):
