@@ -15,7 +15,13 @@
 <body>
   <a href="{{ url_for('index') }}">Главная</a>
   <a href="{{ url_for('short_url.short') }}">Гененрировать ссылку</a>
-
+  {% if current_user.is_authenticated %}
+    <a>Здравствуй, {{ current_user.username }}</a>
+    <a href="{{ url_for('users.logout') }}">Выход</a>
+  {% else %}
+    <a href="{{ url_for('users.login') }}">Вход</a>
+    <a href="{{ url_for('users.register') }}">Регистрация</a>
+  {% endif %}
   {% block content %}
   {% endblock content %}
 </body>

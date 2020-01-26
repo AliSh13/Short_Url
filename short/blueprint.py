@@ -8,4 +8,4 @@ def short():
     if form.validate_on_submit():
         value = request.form.get('shortner_name')
         flash('Новая ссылка готова - sh.su/{}'.format(value))
-    return render_template('short_url/short.html', form = form)
+    return render_template('short_url/short.html', form=form)
