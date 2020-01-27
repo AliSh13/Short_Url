@@ -1,10 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block header %}
+  регистрация
+{% endblock header %}
+
+{% block content %}
+
+  <form action="{{ url_for ('users.register') }}" method="post" class='form'>
+    {{ form.csrf_token }}
+    {% for field in form %}
+      <p>{{ field.label }}</p>
+      <p>{{ field }}</p>
+      {% for error in field.errors %}
+        {{ error }}
+      {% endfor %}
+    {% endfor %}
+
+    <input type="hidden" name="next" value="{{ url_for ('users.register') }}">
+  </form>
+
+{% endblock content %}

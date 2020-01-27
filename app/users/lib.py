@@ -6,5 +6,5 @@ def generate_hash(password):
     return _hash
 
 
-def check_hash(password, hash):
+def check_hash(hash, password):
     return check_password_hash(hash, password)
