@@ -24,11 +24,7 @@ def pg_conn_string(conf: dict):
 
 class BaseConfig(object):
     PROJECT = "short_link"
-    dev_path_config = '/home/ali/Рабочий стол/проекты/Shor_URL/Short_URL'
-    domain = make_config(dev_path_config)["DOMAIN"]
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'shlinksecretkey'
-    SQLALCHEMY_DATABASE_URI = pg_conn_string(make_config(dev_path_config)["DB"])
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
     EXTEND_EXISTINGS = True
     DEBUG = True
     ASSETS_DEBUG = True
@@ -37,7 +33,7 @@ class BaseConfig(object):
     PROJECT_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
     TESTING = False
     #MAX_CONTENT_LENGTH = 16 * 1024 * 1024
-    UPLOAD_FOLDER = os.path.join(INSTANCE_FOLDER_PATH, 'uploads')
+    #UPLOAD_FOLDER = os.path.join(INSTANCE_FOLDER_PATH, 'uploads')
     #SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_POOL_SIZE = 10
     SQLALCHEMY_POOL_TIMEOUT = 300

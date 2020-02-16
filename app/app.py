@@ -1,12 +1,11 @@
 from flask import Flask
 import sys
 
-from app.config import DevelopConfig, make_config, INSTANCE_FOLDER_PATH, pg_conn_string
+from app.config import DevelopConfig, make_config, pg_conn_string
 from .extensions import db, lm
 
 #from gevent import monkey
 #monkey.patch_all()
-__all__ = ['create_app']
 
 
 def create_app(config=None, config_file=None, app_name=None):
@@ -14,7 +13,6 @@ def create_app(config=None, config_file=None, app_name=None):
     if app_name is None:
         app_name = DevelopConfig.PROJECT
     app = Flask(app_name,
-                instance_path=INSTANCE_FOLDER_PATH,
                 instance_relative_config=True,
                 template_folder='app/templates')
     configure_app(app, config, config_file)
@@ -30,7 +28,6 @@ def configure_app(app, config=None, config_file=None):
     if config_file:
         data = make_config(config_file)
         config.SQLALCHEMY_DATABASE_URI = pg_conn_string(data["DB"])
-    print(config.__dict__)
     if config:
         app.config.from_object(config)
     # Use instance folder instead of env variables to make deployment easier.

@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user, login_required
 from .forms import RegisterForm, LoginForm
 from .lib import generate_hash, check_hash
 from app.models import Users
+from app.app import lm, db
 
 users = Blueprint('users', __name__, template_folder='templates')
 
