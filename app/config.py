@@ -16,9 +16,8 @@ def make_config(path=None):
 
 
 def pg_conn_string(conf: dict):
-    return 'postgresql://{user}:{passwd}@{host}:{port}/{db}'.format(
-        user=conf['USER'], passwd=conf['PASS'], host=conf['HOST'],
-        port=conf.get('PORT', 5432), db=conf['DB_NAME']
+    return 'mysql://{user}:{passwd}@{host}/{db}'.format(
+        user=conf['USER'], passwd=conf['PASS'], host=conf['HOST'], db=conf['DB_NAME']
         )
 
 
@@ -36,7 +35,8 @@ class BaseConfig(object):
     #UPLOAD_FOLDER = os.path.join(INSTANCE_FOLDER_PATH, 'uploads')
     #SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_POOL_SIZE = 10
-    SQLALCHEMY_POOL_TIMEOUT = 300
+    SQLALCHEMY_POOL_TIMEOUT = 299
+    SQLALCHEMY_POOL_RECYCLE = 20
     #PRESERVE_CONTEXT_ON_EXCEPTION = False
     #DOWNLOAD_PATH = '/opt/data/dist/'
 

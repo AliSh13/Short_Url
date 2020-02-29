@@ -13,6 +13,6 @@ class RegisterForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('email', validators=[DataRequired(), Email()])
-    password = PasswordField('password', validators=[DataRequired()])
+    email = StringField('email/логин', validators=[DataRequired(), Email()])
+    password = PasswordField('Пароль', validators=[DataRequired()])
     submit = SubmitField("Войти")

@@ -1,6 +1,6 @@
 from flask import Flask
 import sys
-
+from flask import render_template
 from app.config import DevelopConfig, make_config, pg_conn_string
 from .extensions import db, lm
 
@@ -12,14 +12,17 @@ def create_app(config=None, config_file=None, app_name=None):
     """Create a Flask app."""
     if app_name is None:
         app_name = DevelopConfig.PROJECT
-    app = Flask(app_name,
-                instance_relative_config=True,
-                template_folder='app/templates')
+    app = Flask(app_name, template_folder='templates')
     configure_app(app, config, config_file)
     configure_blueprints(app)
     configure_extensions(app)
     configure_logging(app)
     configure_global_hook(app)
+
+    @app.route('/')
+    def index():
+        return render_template('index.html')
+
     return app
 
 

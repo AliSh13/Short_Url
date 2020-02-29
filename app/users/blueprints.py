@@ -6,7 +6,7 @@ from .lib import generate_hash, check_hash
 from app.models import Users
 from app.app import lm, db
 
-users = Blueprint('users', __name__, template_folder='templates')
+users = Blueprint('users', __name__, template_folder='../templates')
 
 
 @lm.user_loader
@@ -32,7 +32,7 @@ def register():
             # flash('A confirmation email has been sent via email.', 'success')
             return redirect(url_for('index'))
     form = RegisterForm()
-    return render_template('users/register.html', form=form)
+    return render_template('register.html', form=form)
 
 
 @users.route('/login', methods=['GET', 'POST'])
@@ -43,7 +43,9 @@ def login():
             email = Users.query.filter_by(email=form.email.data).first()
             username = Users.query.filter_by(username=form.email.data).first()
             user = email if email is not None else username
+            print(form.password.data)
             if user and check_hash(user.password_hash, form.password.data):
+
                 login_user(user)
                 flash('Welcome.', 'success')
                 return redirect(url_for('index'))
@@ -51,7 +53,7 @@ def login():
                 flash('Invalid email/login and/or password.', 'danger')
                 return render_template('users/login.html', form=form)
     form = LoginForm()
-    return render_template('users/login.html', form=form)
+    return render_template('login.html', form=form)
 
 
 @users.route('/logout')
