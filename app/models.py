@@ -2,7 +2,7 @@ from .app import db
 from flask_login import UserMixin
 
 
-class Users(db.Model, UserMixin):
+class UsersApp(db.Model, UserMixin):
     '''формирование таблицы пользователей'''
     __tablename__ = 'users'
 
@@ -13,7 +13,7 @@ class Users(db.Model, UserMixin):
     url = db.relationship('Urls', backref='username', lazy='dynamic')
 
     def __init__(self, *args, **kwargs):
-        super(Users, self).__init__(*args, **kwargs)
+        super(UsersApp, self).__init__(*args, **kwargs)
 
     def __str__(self):
         return f'Пользователь - {self.id} {self.username}'

@@ -1,6 +1,9 @@
 from flask import Flask
 import sys
 from flask import render_template
+from flask import Flask
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from app.config import DevelopConfig, make_config, pg_conn_string
 from .extensions import db, lm
 
@@ -17,7 +20,7 @@ def create_app(config=None, config_file=None, app_name=None):
     configure_blueprints(app)
     configure_extensions(app)
     configure_logging(app)
-    configure_global_hook(app)
+    configure_admin(app)
 
     @app.route('/')
     def index():
@@ -70,14 +73,20 @@ def configure_logging(app):
     app.logger.addHandler(handler)
 
 
-def configure_global_hook(app):
-    pass
-    # @app.before_request
-    # def before_request():
-    #     pass
-    #
-    # @app.after_request
-    # def after_request(response):
-    #     pass
+def configure_admin(app):
+    from .models import Urls, UrlStat, UsersApp
+    from app.admin.blueprint import AnalyticsView
+    app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+    admin = Admin(app, name=app.name, template_mode='bootstrap3')
+
+    class UserModelView(ModelView):
+        column_default_sort = 'Username'
+        column_list = ('Username', 'Email')
+        column_searchable_list = ('Username', 'Email')
+
+    admin.add_view(ModelView(UsersApp, db.session))
+    admin.add_view(ModelView(UrlStat, db.session, category="links"))
+    admin.add_view(ModelView(Urls, db.session, category="links"))
+    admin.add_view(AnalyticsView(name='Analytics', endpoint='analytics'))
 
 
