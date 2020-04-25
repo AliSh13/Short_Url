@@ -6,4 +6,5 @@ from wtforms.validators import DataRequired
 class Shortner(FlaskForm):
     URL = StringField('Ссылка', validators=[DataRequired()])
     shortner_name = StringField('Имя для вашей ссылки', validators=[DataRequired()])
+    tag_name = StringField('Тэг', validators=[DataRequired()])
     submit = SubmitField('Генерировать')
