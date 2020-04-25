@@ -7,10 +7,11 @@ class UsersApp(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer(), primary_key=True, nullable=False, unique=True, autoincrement=True)
-    username = db.Column(db.VARCHAR(30), unique=False, index=True, nullable=False)
+    username = db.Column(db.VARCHAR(30), unique=False, nullable=False)
     email = db.Column(db.String(30), unique=True, nullable=False)
     password_hash = db.Column(db.String(150))
     url = db.relationship('Urls', backref='username', lazy='dynamic')
+    stat = db.relationship('UrlStat', backref='selfuser', lazy='dynamic')
 
     def __init__(self, *args, **kwargs):
         super(UsersApp, self).__init__(*args, **kwargs)
@@ -27,11 +28,11 @@ class Urls(db.Model):
     __tablename__ = 'urls'
 
     id = db.Column(db.Integer(), unique=True, autoincrement=True, nullable=False)
-    url = db.Column(db.VARCHAR(512), nullable=False, index=True)
+    url = db.Column(db.VARCHAR(512), nullable=False)
     sh_url = db.Column(db.VARCHAR(50), nullable=False, unique=True, primary_key=True)
-    tag = db.Column(db.VARCHAR(60), nullable=True, index=True)
-    user = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'),
-                     nullable=False)
+    tag = db.Column(db.VARCHAR(60), nullable=True)
+    user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'),
+                        nullable=False)
     stat = db.relationship('UrlStat', backref='selfurl', lazy='dynamic')
 
     def __init__(self, *args, **kwargs):
@@ -49,8 +50,10 @@ class UrlStat(db.Model):
     __tablename__ = 'statistic'
 
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True, nullable=False, unique=True)
-    url = db.Column(db.Integer(), db.ForeignKey('urls.id', ondelete='CASCADE'),
-                    nullable=False)
+    url_id = db.Column(db.Integer(), db.ForeignKey('urls.id', ondelete='CASCADE'),
+                       nullable=False)
+    user_id = db.Column(db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE'),
+                        nullable=False)
     counter = db.Column(db.INT(), nullable=False, default=0)
     chrome = db.Column(db.INT(), nullable=False, default=0)
     firefox = db.Column(db.INT(), nullable=False, default=0)

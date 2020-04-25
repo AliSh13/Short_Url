@@ -43,7 +43,7 @@ def login():
             email = UsersApp.query.filter_by(email=form.email.data).first()
             username = UsersApp.query.filter_by(username=form.email.data).first()
             user = email if email is not None else username
-            print(form.password.data)
+
             if user and check_hash(user.password_hash, form.password.data):
 
                 login_user(user)

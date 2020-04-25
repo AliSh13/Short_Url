@@ -1,4 +1,3 @@
-from flask import Flask
 import sys
 from flask import render_template
 from flask import Flask
@@ -45,13 +44,13 @@ def configure_extensions(app):
     lm.init_app(app)
 
 
-def configure_blueprints(app):
+def configure_blueprints(app_fl):
     """Configure blueprints in views."""
     from app.short.blueprint import short_url
     from app.users.blueprints import users
 
-    app.register_blueprint(short_url, url_prefix='/sh')
-    app.register_blueprint(users, url_prefix='/users')
+    app_fl.register_blueprint(short_url, url_prefix='/sh')
+    app_fl.register_blueprint(users, url_prefix='/users')
 
 
 def configure_logging(app):
@@ -73,11 +72,11 @@ def configure_logging(app):
     app.logger.addHandler(handler)
 
 
-def configure_admin(app):
+def configure_admin(app_fl):
     from .models import Urls, UrlStat, UsersApp
     from app.admin.blueprint import AnalyticsView
-    app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
-    admin = Admin(app, name=app.name, template_mode='bootstrap3')
+    app_fl.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
+    admin = Admin(app_fl, name=app_fl.name, template_mode='bootstrap3')
 
     class UserModelView(ModelView):
         column_default_sort = 'Username'
